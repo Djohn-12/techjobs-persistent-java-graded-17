@@ -70,6 +70,7 @@ public class HomeController {
 
 
         return "redirect:./";
+
     }
 
     @GetMapping("view/{jobId}")
