@@ -2,7 +2,7 @@ package org.launchcode.techjobs.persistent.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
@@ -11,21 +11,17 @@ import java.util.List;
 @Entity
 public class Skill extends AbstractEntity {
 
-    @ManyToMany(mappedBy="skills")
-    private final List<Job> jobs = new ArrayList<>();
-
-    @NotNull(message = "Description is required")
-    @Size(max = 150, message = "Description too long")
+    @NotBlank
+    @Size(min = 3, max = 50)
     private String description;
 
-    public Skill(String description) {
-        this.description = description;
-    }
+    @ManyToMany(mappedBy = "skills")
+    private List<Job> jobs = new ArrayList<>();
 
-    public Skill(){
+    // Default constructor
+    public Skill() {}
 
-    }
-
+    // Getters and setters
     public String getDescription() {
         return description;
     }
@@ -36,5 +32,9 @@ public class Skill extends AbstractEntity {
 
     public List<Job> getJobs() {
         return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
     }
 }
